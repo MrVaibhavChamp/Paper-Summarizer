@@ -9,7 +9,10 @@ from pathway.xpacks.llm.splitters import TokenCountSplitter
 load_dotenv()
 
 # Initialize Dropbox client with your access token
-dbx = dropbox.Dropbox(os.environ.get("DROPBOX_ACCESS_TOKEN"))
+dbx = dropbox.Dropbox(app_key = os.environ["DROPBOX_APP_KEY"],
+                      app_secret=os.environ["DROPBOX_APP_SECRET"],
+                      oauth2_access_token=os.environ.get("DROPBOX_ACCESS_TOKEN"),
+                      oauth2_refresh_token=os.environ["DROPBOX_REFRESH_TOKEN"])
 
 def fetch_pdf_files_from_dropbox():
     pdf_files = []
@@ -35,15 +38,15 @@ def run(host, port):
     )
 
     # Fetch PDF files from Dropbox
-    input_data = fetch_pdf_files_from_dropbox()
-
+    # input_data = fetch_pdf_files_from_dropbox()
+    dropbox_folder_path = os.environ.get("DROPBOX_ACCESS_TOKEN")
+    
     # # Real-time data coming from external unstructured data sources like a PDF file
-    # input_data = pw.io.fs.read(
-    #     dropbox_folder_path,
-    #     mode="streaming",
-    #     format="binary",
-    #     autocommit_duration_ms=50,
-    # )
+    input_data = pw.io.fs.read(
+        dropbox_folder_path,
+        mode="streaming",
+        format="binary",
+        autocommit_duration_ms=50)
     
     # Chunk input data into smaller documents
     parser = ParseUnstructured()
@@ -55,6 +58,25 @@ def run(host, port):
     documents = documents.select(chunks=splitter(pw.this.texts))
     documents = documents.flatten(pw.this.chunks)
     documents = documents.select(chunk=pw.this.chunks[0])
+
+    # Fetch PDF files from Dropbox
+    # pdf_files = fetch_pdf_files_from_dropbox()
+    
+    # # Process each PDF file
+    # documents = []
+    # for pdf_content in pdf_files:
+    #     # Parse PDF content into smaller documents
+    #     parser = ParseUnstructured()
+    #     parsed_documents = parser(pdf_content)
+    #     documents.append(parsed_documents)
+    
+    # # Split documents into chunks
+    # splitter = TokenCountSplitter()
+    # chunks = []
+    # for doc in documents:
+    #     doc_chunks = splitter(doc)
+    #     chunks.append(doc_chunks)
+    
 
     # Compute embeddings for each document using the OpenAI Embeddings API
     embedded_data = embeddings(context=documents, data_to_embed=pw.this.chunk)
