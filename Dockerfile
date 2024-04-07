@@ -11,6 +11,8 @@ RUN apt-get update
 
 RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+
 # Copy the dependencies file to the working directory
 COPY requirements.txt requirements.txt
 
