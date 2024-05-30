@@ -74,7 +74,7 @@ python  -m  venv  pw-env && source  pw-env/bin/activate
 
 ```  
 
-#### Step 4: Install the dependencies
+##### Step 4: Install the dependencies
 
 Install required packages:
 
@@ -84,7 +84,7 @@ pip  install  --upgrade  -r  requirements.txt
 
 ```  
 
-#### Step 5: Run Pathway API  
+##### Step 5: Run Pathway API  
 
 You start the application by running `main.py`:
 
@@ -96,7 +96,7 @@ python  main.py
 ```
   
 
-#### Step 6: Run Streamlit UI
+##### Step 6: Run Streamlit UI
 
 Run the UI separately by running Streamlit app
 
