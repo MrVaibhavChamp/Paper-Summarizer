@@ -7,30 +7,10 @@
 
 Different ways to run the app:
 
-### Run from source  
 
-#### Prerequisites
+### Run with Docker  
 
-1. [Python](https://www.python.org/downloads/) 3.10 or above
-
-2. Install [Pip](https://pip.pypa.io/en/stable/installation/)
-
-3. [OpenAI](https://openai.com/) account and an API Key([OpenAI](https://openai.com/product))
-
-Now, follow the following steps.
-
-#### Step 1: Clone this repository and navigate to the project folder directory  
-
-```bash
-
-git clone https://github.com/MrVaibhavChamp/Paper-Summarizer.git
-cd  Paper-Summarizer
-
-```  
-
-#### Step 2: Set environment variables
-
-Create `.env` file in the root directory of the project, copy and paste the below config, and replace the `{OPENAI_API_KEY}` configuration value with your key.
+1. Create `.env` file in the root directory of the project, copy and paste the below config, and replace the `{OPENAI_API_KEY}` configuration value with your key.
 
 ```bash
 
@@ -51,9 +31,40 @@ MAX_TOKENS=200
 TEMPERATURE=0.0
 
 ```
-  
 
-#### Step 3 (Optional): Creating new virtual environment
+2. From the project root folder, open your terminal and run `docker compose up`.
+
+3. Navigate to `localhost:8502` on your browser when docker installation is successful.
+
+
+
+### Run from source  
+
+##### Prerequisites
+
+1. [Python](https://www.python.org/downloads/) 3.10 or above
+
+2. Install [Pip](https://pip.pypa.io/en/stable/installation/)
+
+3. [OpenAI](https://openai.com/) account and an API Key([OpenAI](https://openai.com/product))
+
+Now, follow the following steps.
+
+##### Step 1: Clone this repository and navigate to the project folder directory  
+
+```bash
+
+git clone https://github.com/MrVaibhavChamp/Paper-Summarizer.git
+cd  Paper-Summarizer
+
+```  
+
+##### Step 2: Set environment variables
+
+Create a `.env` file in the root project directory as described above.
+
+
+##### Step 3 (Optional): Creating new virtual environment
 
 Create a new virtual environment in the same folder and activate that environment:
 
@@ -90,17 +101,6 @@ python  main.py
 Run the UI separately by running Streamlit app
 
 `streamlit run ui.py` command. It connects to the Pathway's backend API automatically, and the UI frontend will run on your browser.
-
-
-
-### Run with Docker  
-
-1. Create `.env` file in the root directory of the project as described above. 
-
-2. From the project root folder, open your terminal and run `docker compose up`.
-
-3. Navigate to `localhost:8502` on your browser when docker installation is successful.
-
 
 
 ### Run with Conda with a Linux-VM/WSL (windows) or linux/macOS terminal (linux/macOS)
